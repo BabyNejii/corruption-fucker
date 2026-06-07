@@ -63,10 +63,14 @@ class MvrDonationsSource(Source):
 
                 donor = row_data.get("Дарител") or row_data.get("col_1")
                 subject = row_data.get("Предмет") or row_data.get("col_2")
+                # Privacy/defamation guard (docs/LEGAL_AUDIT.md): never bake the donor name into
+                # the public `title` — a private donor could otherwise surface as a flag's subject
+                # (scoring falls back to title). The raw donor stays in `donor`/`raw_row` for the
+                # AI detector, which decides whether it's a nameable supplier (redaction.py).
                 canonical = CanonicalPayload(
                     record_type=RecordType.DONATION,
                     category=CATEGORY_DONATIONS,
-                    title=subject or donor or "(дарение)",
+                    title=subject or "(дарение)",
                     donor=donor,
                     subject=subject,
                     value={"amount": amount, "currency": currency or "BGN"},

@@ -19,4 +19,7 @@ WORKDIR /var/www/html
 # ---- dev: deps installed at runtime via `make install`; source bind-mounted ----
 FROM base AS dev
 ENV APP_ENV=local
+# Enable OPcache for the CLI server (`artisan serve`) so requests aren't recompiled
+# from the slow bind-mount on every hit (~4s -> ~0.1s). See docker/dev/opcache.ini.
+COPY docker/dev/opcache.ini /usr/local/etc/php/conf.d/zz-opcache-cli.ini
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
