@@ -43,8 +43,8 @@ return [
         'archived' => 'Архивирана',
     ],
     'post_tag' => [
-        'stealing_money' => 'Крадене на пари',
+        'stealing_money' => 'Съмнение за злоупотреба',
         'dodgy_deals' => 'Кофти сделки',
-        'shady_business' => 'Шуши-муши',
+        'shady_business' => 'Нещо мирише',
     ],
 ];

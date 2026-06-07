@@ -6,6 +6,6 @@ import { AppTag } from './AppTag';
 describe('AppTag', () => {
   it('renders the Bulgarian punk-tag label', () => {
     renderWithProviders(<AppTag tag="theft" />);
-    expect(screen.getByText('Крадене на пари')).toBeInTheDocument();
+    expect(screen.getByText('Съмнение за злоупотреба')).toBeInTheDocument();
   });
 });
