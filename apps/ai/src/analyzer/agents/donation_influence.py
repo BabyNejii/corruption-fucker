@@ -5,6 +5,7 @@ from __future__ import annotations
 from ..context import AnalysisContext
 from ..llm import StructuredLLM
 from ..payload import TenderView
+from ..redaction import published_donor
 from ..schemas import DonationInfluenceOutput, Signal
 from .base import full_text_block, load_prompt, tender_brief
 
@@ -37,7 +38,14 @@ def run(client: StructuredLLM, view: TenderView, ctx: AnalysisContext) -> Donati
         return None
     system = load_prompt(NAME)
     user = f"{tender_brief(view)}\n\n{_donation_block(view)}\n\n{full_text_block(view)}"
-    return client.analyze(system, user, DonationInfluenceOutput)
+    output = client.analyze(system, user, DonationInfluenceOutput)
+    if output is not None:
+        # Privacy/defamation guard: name a donor only when it's a regulated supplier/company
+        # (public-interest); a private donor is generalised (redaction.py). Cleans agent_outputs.
+        output.named_donor = published_donor(
+            output.named_donor, view.payload.get("donor"), output.donor_is_regulated_or_supplier
+        )
+    return output
 
 
 def signals(output: DonationInfluenceOutput | None, view: TenderView) -> list[Signal]:
@@ -52,7 +60,13 @@ def signals(output: DonationInfluenceOutput | None, view: TenderView) -> list[Si
                 code="POL01",
                 risk=output.influence_suspicion,
                 value={
-                    "donor": output.named_donor or view.payload.get("donor"),
+                    # Defense-in-depth: redact again at the publish boundary (idempotent) so a
+                    # private donor's name can never reach a published signal.
+                    "donor": published_donor(
+                        output.named_donor,
+                        view.payload.get("donor"),
+                        output.donor_is_regulated_or_supplier,
+                    ),
                     "regulated_supplier": output.donor_is_regulated_or_supplier,
                     "in_kind": output.in_kind_or_vehicle,
                     "repeat": output.repeat_donor,

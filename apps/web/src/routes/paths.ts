@@ -17,6 +17,8 @@ export const paths = {
   network: (publicId: string) => `/network/${seg(publicId)}`,
   map: '/map',
   about: '/about',
+  privacy: '/privacy',
+  corrections: '/corrections',
   adminLogin: '/admin/login',
   admin: '/admin',
   adminPending: '/admin/pending',

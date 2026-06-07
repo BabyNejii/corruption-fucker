@@ -13,7 +13,7 @@ interface SubscriberRepository
     /** Subscribe (or re-activate an unsubscribed) e-mail. Idempotent on e-mail. */
     public function subscribe(string $email): Subscriber;
 
-    /** Mark the holder of this token as unsubscribed. Returns false if unknown. */
+    /** Unsubscribe AND erase the holder of this token (GDPR). Returns false if unknown. */
     public function unsubscribeByToken(string $token): bool;
 
     /**

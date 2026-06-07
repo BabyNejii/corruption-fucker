@@ -32,7 +32,9 @@ final class EloquentSubscriberRepository implements SubscriberRepository
             return false;
         }
 
-        $subscriber->update(['unsubscribed_at' => now()]);
+        // GDPR erasure: one-click unsubscribe DELETES the address — we don't retain the e-mails
+        // of people who opted out (docs/LEGAL_AUDIT.md §2.6; the published privacy policy says so).
+        $subscriber->delete();
 
         return true;
     }

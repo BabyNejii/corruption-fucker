@@ -1,4 +1,4 @@
-import { Chip, Divider, Stack, Typography } from '@mui/material';
+import { Alert, Chip, Divider, Stack, Typography } from '@mui/material';
 import { ArrowLeftIcon, ChartLineIcon, EyeIcon, GraphIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -65,6 +65,12 @@ export function PostView({ publicId }: PostViewProps) {
       </Typography>
 
       <AppTldr text={makeTldr(flag)} />
+
+      {/* Defamation framing (docs/LEGAL_AUDIT.md): a clear, prominent "suspicion not verdict"
+          notice on the full post, where the accusation is read in detail. */}
+      <Alert severity="info" variant="outlined">
+        {t('flags:card.disclaimer')}
+      </Alert>
 
       {flag.series_key !== undefined ? (
         <AppButton

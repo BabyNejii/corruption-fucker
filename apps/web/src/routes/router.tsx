@@ -7,8 +7,10 @@ import { FeedPage } from '@/pages/FeedPage';
 import { HomePage } from '@/pages/HomePage';
 import { MapPage } from '@/pages/MapPage';
 import { NetworkPage } from '@/pages/NetworkPage';
+import { CorrectionsPage } from '@/pages/CorrectionsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { PostPage } from '@/pages/PostPage';
+import { PrivacyPage } from '@/pages/PrivacyPage';
 import { PricePage } from '@/pages/PricePage';
 import { SearchPage } from '@/pages/SearchPage';
 import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage';
@@ -36,6 +38,8 @@ export const router = createBrowserRouter([
       { path: patterns.network, element: <NetworkPage /> },
       { path: paths.map, element: <MapPage /> },
       { path: paths.about, element: <AboutPage /> },
+      { path: paths.privacy, element: <PrivacyPage /> },
+      { path: paths.corrections, element: <CorrectionsPage /> },
       { path: paths.adminLogin, element: <AdminLoginPage /> },
       {
         element: <ProtectedRoute />,

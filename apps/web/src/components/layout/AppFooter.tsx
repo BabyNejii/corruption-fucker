@@ -12,6 +12,19 @@ export function AppFooter() {
   return (
     <Box component="footer" sx={{ borderTop: 1, borderColor: 'divider', mt: 6, py: 3, bgcolor: 'background.default', position: 'relative', zIndex: 1 }}>
       <Stack spacing={1} alignItems="center" textAlign="center">
+        {/* Legal / transparency links — privacy notice + right-of-reply are the GDPR + defamation
+            surface (docs/LEGAL_AUDIT.md). */}
+        <Stack direction="row" spacing={2} flexWrap="wrap" justifyContent="center" useFlexGap>
+          <MuiLink component={RouterLink} to={paths.about} variant="caption" color="text.secondary">
+            {t('common:footer.about')}
+          </MuiLink>
+          <MuiLink component={RouterLink} to={paths.privacy} variant="caption" color="text.secondary">
+            {t('common:footer.privacy')}
+          </MuiLink>
+          <MuiLink component={RouterLink} to={paths.corrections} variant="caption" color="text.secondary">
+            {t('common:footer.corrections')}
+          </MuiLink>
+        </Stack>
         <Typography variant="caption" color="text.secondary">
           {t('common:footer.sources')}
         </Typography>

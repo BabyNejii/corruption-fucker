@@ -67,6 +67,15 @@ export function AppFlagPostCard({ flag }: AppFlagPostCardProps) {
             {flag.explanation_bg}
           </Typography>
           <AppEvidenceList items={flag.evidence} max={2} />
+          {/* Defamation framing (docs/LEGAL_AUDIT.md): every card states it's a sourced
+              suspicion to verify, not a verdict — the key line that keeps claims defensible. */}
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            sx={{ display: 'block', mt: 1.5, fontStyle: 'italic', lineHeight: 1.5 }}
+          >
+            {t('flags:card.disclaimer')}
+          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ justifyContent: 'space-between', flexWrap: 'wrap', gap: 1, px: 2, py: 1, borderTop: `1px solid ${palette.alarm}22` }}>

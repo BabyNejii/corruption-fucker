@@ -38,7 +38,8 @@ it('unsubscribes via token', function () {
     $this->getJson("/api/unsubscribe/{$token}")->assertOk()->assertJsonPath('status', 'unsubscribed');
     $this->getJson('/api/unsubscribe/bogus-token')->assertNotFound();
 
-    expect(Subscriber::firstWhere('email', 'c@d.org')->unsubscribed_at)->not->toBeNull();
+    // GDPR erasure: the address is deleted on unsubscribe, not just flagged.
+    expect(Subscriber::firstWhere('email', 'c@d.org'))->toBeNull();
 });
 
 it('forbids guests and non-admins from broadcasting', function () {

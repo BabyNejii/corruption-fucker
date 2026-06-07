@@ -8,6 +8,7 @@ import errors from './locales/bg/errors.json';
 import feed from './locales/bg/feed.json';
 import flags from './locales/bg/flags.json';
 import home from './locales/bg/home.json';
+import legal from './locales/bg/legal.json';
 import post from './locales/bg/post.json';
 import search from './locales/bg/search.json';
 import sectors from './locales/bg/sectors.json';
@@ -16,14 +17,14 @@ import viz from './locales/bg/viz.json';
 export const defaultNS = 'common';
 
 export const resources = {
-  bg: { common, home, feed, flags, post, errors, about, entity, search, sectors, viz, admin },
+  bg: { common, home, feed, flags, post, errors, about, entity, search, sectors, viz, admin, legal },
 } as const;
 
 void i18n.use(initReactI18next).init({
   lng: 'bg',
   fallbackLng: 'bg',
   defaultNS,
-  ns: ['common', 'home', 'feed', 'flags', 'post', 'errors', 'about', 'entity', 'search', 'sectors', 'viz', 'admin'],
+  ns: ['common', 'home', 'feed', 'flags', 'post', 'errors', 'about', 'entity', 'search', 'sectors', 'viz', 'admin', 'legal'],
   resources,
   interpolation: { escapeValue: false },
   returnNull: false,
